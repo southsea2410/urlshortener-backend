@@ -1,25 +1,26 @@
 package org.nam.urlshortener.entity;
 
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
+import lombok.Data;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
 @Document(collection = "urls")
+@Data
 public class Url {
 
-    @Id
-    public String id;
+    private String id;
 
-    public String password;
+    private String longUrl;
 
-    public String alias;
+    private String password;
 
-    @CreatedDate
-    public LocalDateTime createdAt;
+    private String alias;
 
-    public LocalDateTime expiry;
+    private LocalDateTime createdAt;
+
+    private LocalDateTime expiry;
 
     @Override
     public String toString() {
@@ -32,10 +33,16 @@ public class Url {
                 '}';
     }
 
-    public Url(String password, String alias, LocalDateTime createdAt, LocalDateTime expiry) {
+    public Url(String password, String alias, String expiry) {
+        ObjectId id = new ObjectId();
+
+        this.id = id.toString();
+        this.createdAt = LocalDateTime.now();
         this.password = password;
         this.alias = alias;
-        this.createdAt = createdAt;
-        this.expiry = expiry;
+
+        if (expiry != null) {
+            this.expiry = LocalDateTime.parse(expiry);
+        }
     }
 }
