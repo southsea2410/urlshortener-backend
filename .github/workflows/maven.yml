@@ -35,9 +35,14 @@ jobs:
       -
         name: Build and push
         uses: docker/build-push-action@v6
-        env:
-          SPRING_DATA_MONGODB_URI: ${{ secrets.MONGODB_URI }}
-          SERVER_PORT: 4002
         with:
           push: true
           tags: haina2410/urlshortener-backend:latest
+
+      - name: Trigger Portainer to repull the image
+        uses: distributhor/workflow-webhook@v3.0.7
+        with:
+          webhook_url: ${{ secrets.PORTAINER_WEBHOOK }}
+          verbose: true
+          max_time: 180
+

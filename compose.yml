@@ -1,9 +1,6 @@
 services:
   urlshortener-backend:
-    pull_policy: build
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: haina2410/urlshortener-backend:latest
     ports:
       - '4002:4002'
     env_file:
