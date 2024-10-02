@@ -35,6 +35,9 @@ jobs:
       -
         name: Build and push
         uses: docker/build-push-action@v6
+        env:
+          SPRING_DATA_MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          SERVER_PORT: 4002
         with:
           push: true
           tags: haina2410/urlshortener-backend:latest

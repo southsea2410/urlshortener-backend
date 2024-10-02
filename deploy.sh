@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-source ./stack.env
+#. ./stack.env
 mvn -f pom.xml clean package
