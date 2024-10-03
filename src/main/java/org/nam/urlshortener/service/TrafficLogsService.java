@@ -34,7 +34,7 @@ public class TrafficLogsService {
     }
 
     public String getMetabaseEmbedLink(MetabasePayloadDto metabasePayloadDto) {
-        String METABASE_SITE_URL = "http://metabase.haina.id.vn";
+        String METABASE_SITE_URL = "https://metabase.haina.id.vn";
 
         // Create the payload
         Map<String, Object> payload = new HashMap<>();
