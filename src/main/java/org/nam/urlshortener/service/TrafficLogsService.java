@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.time.LocalDateTime;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,13 +73,6 @@ public class TrafficLogsService {
         String referer = request.getHeader("Referer");
         String ip = request.getRemoteAddr();
         LocalDateTime time = LocalDateTime.now();
-
-        Enumeration<String> headers = request.getHeaderNames();
-
-        while (headers.hasMoreElements()) {
-            String header = headers.nextElement();
-            log.info(header + ": " + request.getHeader(header));
-        }
 
         Click click = new Click(country, alias, referer, userAgent, time, ip);
         trafficLogsRepository.save(click);

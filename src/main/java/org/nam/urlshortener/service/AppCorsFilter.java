@@ -10,7 +10,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import java.io.IOException;
-import java.util.Enumeration;
 
 @Component
 @Slf4j
@@ -28,13 +27,6 @@ public class AppCorsFilter extends CorsFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-
-        Enumeration<String> headerNames = request.getHeaderNames();
-        log.info("----------------- Filtering request headers");
-        while (headerNames.hasMoreElements()) {
-            String headerName = headerNames.nextElement();
-            log.info("{} = {}", headerName, request.getHeader(headerName));
-        }
 
         response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
         response.setHeader("Access-Control-Allow-Credentials", "true");
