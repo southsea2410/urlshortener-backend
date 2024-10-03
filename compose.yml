@@ -5,3 +5,10 @@ services:
       - '4002:4002'
     env_file:
       - stack.env
+
+  metabase:
+    image: metabase/metabase:latest
+    ports:
+      - '4003:3000'
+    env_file:
+      - stack.env

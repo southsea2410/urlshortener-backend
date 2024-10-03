@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@CrossOrigin(origins = "*")
+@CrossOrigin
 public class UrlController {
 
     private final UrlService urlService;
