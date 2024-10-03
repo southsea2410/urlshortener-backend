@@ -10,6 +10,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 @Component
 @Slf4j
@@ -28,19 +29,18 @@ public class AppCorsFilter extends CorsFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        String origin = request.getHeader("Origin");
-
-//        if (origin != null && !origin.isEmpty() && !ALLOWED_ORIGINS.contains(origin)) {
-//            log.warn("Origin {} is not allowed", origin);
-//            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Origin is not allowed");
-//            return;
-//        }
+        Enumeration<String> headerNames = request.getHeaderNames();
+        log.info("----------------- Filtering request headers");
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            log.info("{} = {}", headerName, request.getHeader(headerName));
+        }
 
         response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Methods", API_METHODS);
         response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me, Authorization");
 
         filterChain.doFilter(request, response);
     }
