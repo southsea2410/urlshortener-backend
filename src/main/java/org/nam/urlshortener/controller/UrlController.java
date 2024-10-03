@@ -14,8 +14,8 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.util.List;
 
 @RestController
-@CrossOrigin(originPatterns = "*")
 @Slf4j
+@CrossOrigin(origins = "*")
 public class UrlController {
 
     private final UrlService urlService;
