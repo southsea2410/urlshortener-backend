@@ -5,6 +5,7 @@ services:
       - '4002:4002'
     env_file:
       - stack.env
+    restart: unless-stopped
 
   metabase:
     image: metabase/metabase:latest
@@ -12,3 +13,4 @@ services:
       - '4003:3000'
     env_file:
       - stack.env
+    restart: unless-stopped
