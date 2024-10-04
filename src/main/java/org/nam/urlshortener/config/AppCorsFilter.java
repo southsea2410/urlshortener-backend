@@ -1,4 +1,4 @@
-package org.nam.urlshortener.service;
+package org.nam.urlshortener.config;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
