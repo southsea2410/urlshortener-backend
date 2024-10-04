@@ -1,6 +1,7 @@
 package org.nam.urlshortener.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import eu.bitwalker.useragentutils.UserAgent;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -69,12 +70,14 @@ public class TrafficLogsService {
 
         String country = request.getHeader("CF-IPCountry");
         String alias = request.getRequestURI().replace("/", "");
-        String userAgent = request.getHeader("User-Agent");
+        String userAgentStr = request.getHeader("User-Agent");
         String referer = request.getHeader("Referer");
         String ip = request.getRemoteAddr();
         LocalDateTime time = LocalDateTime.now();
 
-        Click click = new Click(country, alias, referer, userAgent, time, ip);
+        UserAgent userAgent = UserAgent.parseUserAgentString(userAgentStr);
+
+        Click click = new Click(country, alias, referer, userAgent.getOperatingSystem().getName(), time, ip);
         trafficLogsRepository.save(click);
     }
 }
