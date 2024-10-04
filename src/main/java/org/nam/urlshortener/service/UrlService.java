@@ -1,13 +1,16 @@
 package org.nam.urlshortener.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.nam.urlshortener.entity.Url;
 import org.nam.urlshortener.repository.UrlsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
+@Slf4j
 public class UrlService {
     private final UrlsRepository urlsRepository;
     private final CounterService counterService;
@@ -16,6 +19,8 @@ public class UrlService {
     public UrlService(UrlsRepository urlsRepository, CounterService counterService) {
         this.urlsRepository = urlsRepository;
         this.counterService = counterService;
+        log.info("UrlService created");
+        log.info(LocalDate.now().toString());
     }
 
     public Url add(Url url) {
@@ -48,7 +53,7 @@ public class UrlService {
 
     public Url findUrlToRedirect(String alias) {
         Url url = urlsRepository.findUrlByAlias(alias);
-        if (url.getExpiry() != null && url.getExpiry().isBefore(java.time.LocalDateTime.now())) {
+        if (url.getExpiry() != null && url.getExpiry().isBefore(java.time.LocalDate.now())) {
             throw new IllegalArgumentException("Alias expired");
         }
         return url;
@@ -56,5 +61,9 @@ public class UrlService {
 
     public List<Url> findUrlsByAliasIn(List<String> aliases) {
         return urlsRepository.findUrlsByAliasIn(aliases);
+    }
+
+    public List<Url> findAll() {
+        return urlsRepository.findAll();
     }
 }

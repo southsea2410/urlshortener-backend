@@ -26,6 +26,7 @@ public class UrlController {
     private final TrafficLogsService trafficLogsService;
 
     private final UrlService urlService;
+
     @Value("${frontend.url}")
     private String frontendUrl;
 
@@ -88,7 +89,7 @@ public class UrlController {
     }
 
 
-    @PostMapping("/urls")
+    @PostMapping("/urls/mine")
     public ResponseEntity<List<Url>> getUrlsByAliases(@RequestBody AliasList aliasList) {
         try {
             List<Url> urls = urlService.findUrlsByAliasIn(aliasList.getAliases());
@@ -98,6 +99,18 @@ public class UrlController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error while getting URLs by aliases");
         }
     }
+
+    @PostMapping("/urls/all")
+    public ResponseEntity<List<Url>> getAllUrls() {
+        try {
+            List<Url> urls = urlService.findAll();
+            return ResponseEntity.ok(urls);
+        } catch (Exception e) {
+            log.error("Error while getting all URLs", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error while getting all URLs");
+        }
+    }
+
 
     @PostMapping("/shorten")
     public ResponseEntity<String> shorten(@RequestBody Url url) {

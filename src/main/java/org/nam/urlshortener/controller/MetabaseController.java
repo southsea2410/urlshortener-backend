@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class TrafficLogsController {
+public class MetabaseController {
 
     private final TrafficLogsService trafficLogsService;
 
     @Autowired
-    public TrafficLogsController(TrafficLogsService trafficLogsService) {
+    public MetabaseController(TrafficLogsService trafficLogsService) {
         this.trafficLogsService = trafficLogsService;
     }
 
